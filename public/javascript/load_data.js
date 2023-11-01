@@ -53,7 +53,7 @@ let cargarPrecipitacion = () => {
     let cargarOpenMeteo = () => {
 
         //URL que responde con la respuesta a cargar
-        let URL = 'https://api.open-meteo.com/v1/forecast?latitude=-2.1962&longitude=-79.8862&hourly=temperature_2m&timezone=auto'; 
+        let URL = 'https://api.open-meteo.com/v1/forecast?latitude=-2.1962&longitude=-79.8862&hourly=temperature_2m,is_day&timezone=auto'; 
       
         fetch( URL )
           .then(responseText => responseText.json())
@@ -70,7 +70,8 @@ let cargarPrecipitacion = () => {
             let labels = responseJSON.hourly.time;
 
             //Etiquetas de los datos
-            let data = responseJSON.hourly.temperature_2m;
+            let data1 = responseJSON.hourly.temperature_2m;
+            let data2 = responseJSON.hourly.is_day;
 
             //Objeto de configuración del gráfico
             let config = {
@@ -80,7 +81,11 @@ let cargarPrecipitacion = () => {
                 datasets: [
                 {
                     label: 'Temperature [2m]',
-                    data: data, 
+                    data: data1, 
+                },
+                {
+                    label: 'Es día o no',
+                    data: data2, 
                 }
                 ]
             }
